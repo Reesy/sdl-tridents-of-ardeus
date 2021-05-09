@@ -1,13 +1,11 @@
-# SDL2_VSCODE_PROJECT_TEMPLATE
+# Tridents of ardeus
 
-This is an example project which will let you create SDL2 projects quickly, it has a very simple CMake build system.
-
-
+A small RPG to play around with SDL.
 
 How to clone:
 
 ```
-git clone https://github.com/Reesy/sdl2_vscode_project_template
+git clone https://github.com/Reesy/sdl-tridents-of-ardeus
 ```
 
 This project has a dependency on SDL2 and SDL_image, when building natively these dependencies must be installed on the target machine and they can be discovered through the FindSDL cmake files. When building through emscripten the SDL and SDL2 ports are required (they should exist by default)
@@ -16,6 +14,7 @@ This project has a dependency on SDL2 and SDL_image, when building natively thes
     <dt> Requirements<dt>
     <dd style='color:red'> CMake -- required to build this project </dd>
 <dl>
+
 
 To build a release (on OSX):
 
@@ -38,6 +37,14 @@ make
 
 <div style='color:red'> The 'resources' folder needs to exist in the same directory as the .exe file (on OSX it will be automatically bundled into the app</div>
 
+
+</br>
+</br>
+</br>
+
+
+
+# vs-code only
 
 This project comes with a .vscode folder prebundled to make debugging easier, for this to work two plugins are necessary 
 

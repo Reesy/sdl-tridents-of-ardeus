@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string> 
 #include <iostream>
+#include <GameEntity.hpp>
 
 #if __EMSCRIPTEN__
 	#include <emscripten/emscripten.h>
@@ -98,6 +99,8 @@ void init()
 					0,                       // Y position - sets the circle at the top of the screen 
 					15,                      // Sets the height of the circle
 					15};                     // Sets the weidth of the circle
+
+	GameEntity testEnt = GameEntity();
 }
 
 void input()

@@ -8,7 +8,7 @@
             "name": "Debug",
             "type": "lldb",
             "request": "launch",
-            "program": "./build/simple_sdl2_application",
+            "program": "./build/Tridents-of-Ardeus",
             "cwd": "${workspaceRoot}",
             "args": [
                 "-arg1",

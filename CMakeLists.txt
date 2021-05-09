@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 3.17.3) 
 
-set(EXECUTABLE_NAME simple_sdl2_application)
+set(EXECUTABLE_NAME Tridents-of-Ardeus)
 
-project(SDL2_example LANGUAGES CXX) #set the project name and to use C++
+project(Tridents LANGUAGES CXX) #set the project name and to use C++
 
 set(CMAKE_BUILD_TYPE Debug)
 
-set(MY_SOURCES src/main.cpp)
+set(MY_SOURCES src/main.cpp
+               src/GameEntity.cpp
+               include/GameEntity.hpp)
 
 set(MY_RESOURCES resources)
 
@@ -17,10 +19,12 @@ if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
 
     find_package(SDL2_IMAGE REQUIRED)
 
-    include_directories(${SDL2_IMAGE_INCLUDE_DIR})
+    include_directories(${SDL2_IMAGE_INCLUDE_DIR}) 
 
     include_directories(${SDL2_INCLUDE_DIR})
 endif()
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_executable(${EXECUTABLE_NAME} ${MY_SOURCES})
 
