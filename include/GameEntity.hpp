@@ -1,4 +1,5 @@
 
+#include <Graphics.hpp>
 #pragma once
 
 class GameEntity
@@ -8,5 +9,6 @@ class GameEntity
 
 public:
 	GameEntity();
+	GameEntity(Graphics _graphicsComponent);
 	~GameEntity();
 };

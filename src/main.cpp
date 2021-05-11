@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <string> 
 #include <iostream>
+#include <AI.hpp>
+#include <Collider.hpp>
 #include <GameEntity.hpp>
+#include <Graphics.hpp>
+#include <Scene.hpp>
 
 #if __EMSCRIPTEN__
 	#include <emscripten/emscripten.h>
@@ -100,7 +104,11 @@ void init()
 					15,                      // Sets the height of the circle
 					15};                     // Sets the weidth of the circle
 
+	
+	Graphics gComponent = Graphics();
+
 	GameEntity testEnt = GameEntity();
+	GameEntity testEnt2 = GameEntity(gComponent);
 }
 
 void input()
@@ -136,7 +144,7 @@ void input()
 
 
 
-void update(double dt)
+void update(double _dt)
 {
 
 	if (positionRect.y <= 0)
@@ -151,13 +159,11 @@ void update(double dt)
 
 	if (falling)
 	{
-		positionRect.y += velocity * dt;
+		positionRect.y += velocity * _dt;
 	}
 	else 
 	{
-	
-		positionRect.y -= velocity * dt;
-		
+		positionRect.y -= velocity * _dt;	
 	}
 
 }

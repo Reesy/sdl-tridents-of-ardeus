@@ -6,6 +6,12 @@ GameEntity::GameEntity()
 {
 	x = 0;
 	y = 0;
+}
+
+GameEntity::GameEntity(Graphics _graphicsComponent)
+{
+	x = 0;
+	y = 0;
 	std::cout << "Game Entity created" << std::endl;
 };
 

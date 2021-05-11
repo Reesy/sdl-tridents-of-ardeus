@@ -1,10 +1,9 @@
 #pragma once
+
 class Graphics
 {
-	int x;
-	int y;
-
 public:
 	Graphics();
-	~Graphics();
+	virtual ~Graphics();
+	virtual void render();
 };
