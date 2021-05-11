@@ -1,9 +1,11 @@
 #pragma once
+#include <Component.hpp>
 
-class Graphics
+class Graphics: public Component
 {
 public:
 	Graphics();
-	virtual ~Graphics();
-	virtual void render();
+	~Graphics();
+	void render();
+	void receive(int message);
 };

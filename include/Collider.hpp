@@ -1,6 +1,7 @@
 #pragma once
+#include <Component.hpp>
 
-class Collider
+class Collider: Component
 {
 public:
 	Collider();

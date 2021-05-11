@@ -1,6 +1,7 @@
 #pragma once
+#include <Component.hpp>
 
-class AI
+class AI : Component
 {
 public:
 	AI();

@@ -15,6 +15,7 @@ set(MY_SOURCES  src/AI.cpp
                 include/AI.hpp
                 include/Collider.hpp
                 include/GameEntity.hpp
+                include/Component.hpp
                 include/Graphics.hpp
                 include/Scene.hpp)
 
