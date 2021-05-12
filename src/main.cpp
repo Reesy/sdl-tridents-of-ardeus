@@ -34,7 +34,7 @@ SDL_Event *event = NULL;
 SDL_Texture *circle = NULL;
 SDL_Rect textureRect;
 SDL_Rect positionRect;
-Graphics* playerGraphics = NULL;
+
 bool quit = false;
 bool falling = true;
 
@@ -104,20 +104,7 @@ void init()
 					15,                      // Sets the height of the circle
 					15};                     // Sets the weidth of the circle
 
-	
-	playerGraphics = new Graphics();
-	
-	std::cout << playerGraphics << std::endl;
-	if (playerGraphics == nullptr)
-	{
-		std::cout << "Player graphics should not have been NULL" << std::endl;
-	}
-
-
-
-//	GameEntity testEnt = GameEntity();
-	
-	
+		
 	Graphics testComp = Graphics();
 	
 	GameEntity testEnt2 = GameEntity(testComp);

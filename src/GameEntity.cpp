@@ -23,9 +23,13 @@ GameEntity::~GameEntity()
 
 void GameEntity::send(int _message)
 {
-	for (int i = 0; i < sizeof(this->components); i++)
+	for (int i = 0; i < MAX_COMPONENTS; i++)
 	{
-		this->components[0]->receive(_message);
+		if (this->components[i] == nullptr)
+		{
+			break;
+		}
+		this->components[i]->receive(_message);
 	}
 	return;
 }
