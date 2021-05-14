@@ -58,6 +58,14 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 	return texture;
 }
 
+std::array<Component*, 10> createBall()
+{
+	std::array<Component*, 10> ballComponents = {0};
+	Graphics *ballGraphics = new Graphics();
+	ballComponents[0] = ballGraphics;
+	return ballComponents;
+}
+
 void init()
 {
 	
@@ -105,9 +113,9 @@ void init()
 					15};                     // Sets the weidth of the circle
 
 		
-	Graphics testComp = Graphics();
+	//Graphics testComp = Graphics();
 	
-	GameEntity testEnt2 = GameEntity(testComp);
+	GameEntity testEnt2 = GameEntity(createBall());
 
 	testEnt2.send(1337);
 }

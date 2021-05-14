@@ -10,8 +10,7 @@ class GameEntity
 	static const int MAX_COMPONENTS = 10;
 	std::array<Component*, MAX_COMPONENTS> components = {0};
 public:
-	GameEntity();
-	GameEntity(Graphics _graphicsComponent);
+	GameEntity(std::array<Component*, MAX_COMPONENTS> _components);
 	~GameEntity();
 	void send(int message);
 };

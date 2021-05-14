@@ -2,15 +2,10 @@
 #include <iostream>
 
 
-GameEntity::GameEntity()
-{
-	x = 0;
-	y = 0;
-}
 
-GameEntity::GameEntity(Graphics _graphicsComponent)
+GameEntity::GameEntity(std::array<Component*, MAX_COMPONENTS> _components)
 {	
-	this->components[0] = &_graphicsComponent;
+	this->components = _components;
 	x = 0;
 	y = 0;
 	std::cout << "Game Entity created" << std::endl;

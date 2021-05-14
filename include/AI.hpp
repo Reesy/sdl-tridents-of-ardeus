@@ -6,4 +6,5 @@ class AI : Component
 public:
 	AI();
 	virtual ~AI();
+	void receive(int message);
 };
