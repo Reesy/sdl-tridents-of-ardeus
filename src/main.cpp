@@ -4,7 +4,7 @@
 #include <AI.hpp>
 #include <GameEntity.hpp>
 #include <Graphics.hpp>
-#include <BallGraphics.hpp>
+#include <GraphicsComponent.hpp>
 #include <Collider.hpp>
 #include <Scene.hpp>
 
@@ -33,6 +33,7 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 SDL_Event *event = NULL;
 SDL_Texture *circle = NULL;
+SDL_Texture *playerTexture = NULL;
 SDL_Rect textureRect;
 SDL_Rect positionRect;
 
@@ -49,6 +50,8 @@ double velocity = 1;
 
 //Scene objects
 GameEntity* ballEntity = NULL;
+GameEntity* playerEntity = NULL;
+
 
 SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 {
@@ -65,10 +68,22 @@ Components* createBall()
 {
 	SDL_Rect BalltextureRect = {0, 0, 100, 100};
 	Components* ballComponents = new Components;
-	BallGraphics* ballGraphics = new BallGraphics(circle, BalltextureRect);
-	ballComponents->GraphicsComponent = ballGraphics;
+	GraphicsComponent* graphicsComponent = new GraphicsComponent(circle, BalltextureRect);
+	ballComponents->GraphicsComponent = graphicsComponent;
 	return ballComponents;
 };
+
+Components* createPlayer()
+{
+
+	SDL_Rect PlayerTextureRect = {0, 0, 40, 40};
+	Components* playerComponents = new Components;
+	GraphicsComponent* graphicsComponent = new GraphicsComponent(playerTexture, PlayerTextureRect);
+	playerComponents->GraphicsComponent = graphicsComponent;
+	return playerComponents;
+};
+
+
 
 void init()
 {
@@ -110,6 +125,10 @@ void init()
 								0,
 								15,
 								15);
+
+	playerTexture = loadTexture("resources/player_spritesheet.png", renderer);
+
+	playerEntity = new GameEntity(createPlayer(), 20, 20, 100, 100);
 };
 
 void input()
@@ -179,6 +198,7 @@ void render()
 	//Set up the circle on the next render frame.
 	ballEntity->components->GraphicsComponent->render(*ballEntity, renderer);
 
+	playerEntity->components->GraphicsComponent->render(*playerEntity, renderer);
 	//Renders current frame.
 	SDL_RenderPresent(renderer);
 }

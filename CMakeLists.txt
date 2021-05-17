@@ -7,14 +7,14 @@ project(Tridents LANGUAGES CXX) #set the project name and to use C++
 set(CMAKE_BUILD_TYPE Debug)
 
 set(MY_SOURCES  src/AI.cpp
-                src/BallGraphics.cpp
+                src/GraphicsComponent.cpp
                 src/Collider.cpp
                 src/GameEntity.cpp
                 src/Graphics.cpp
                 src/main.cpp
                 src/Scene.cpp
                 include/AI.hpp
-                include/BallGraphics.hpp
+                include/GraphicsComponent.hpp
                 include/Collider.hpp
                 include/GameEntity.hpp
                 include/Component.hpp
