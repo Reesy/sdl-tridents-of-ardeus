@@ -8,7 +8,6 @@
 #include <Collider.hpp>
 #include <Scene.hpp>
 
-
 #if __EMSCRIPTEN__
 	#include <emscripten/emscripten.h>
 	#include <SDL2/SDL.h>
@@ -48,10 +47,8 @@ double currentTime = SDL_GetTicks(); // in miliseconds
 double accumulator = 0.0; //This will hold the accumulation of physics steps (any time left over if the graphics renders faster than the physics simulates)
 double velocity = 1;    
 
-
 //Scene objects
 GameEntity* ballEntity = NULL;
-
 
 SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 {
@@ -66,8 +63,9 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 
 Components* createBall()
 {
+	SDL_Rect BalltextureRect = {0, 0, 100, 100};
 	Components* ballComponents = new Components;
-	BallGraphics* ballGraphics = new BallGraphics(circle);
+	BallGraphics* ballGraphics = new BallGraphics(circle, BalltextureRect);
 	ballComponents->GraphicsComponent = ballGraphics;
 	return ballComponents;
 };
@@ -81,7 +79,7 @@ void init()
 		throw("SDL failed to initialise");
 	}
 
-	window = SDL_CreateWindow("SDL2 Example!!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow("Tridents Of Ardeus!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
 	if (window == nullptr)
 	{
@@ -106,27 +104,13 @@ void init()
 	event = new SDL_Event();
 
 	circle = loadTexture("resources/example_texture.png", renderer);
-	
-	//This rectangle represents where from the circles.png we should grab the texture. 
-	//X, Y, W, H means that we grab 100 x 100 pixels from the top left of the target image (when we use SDL_RenderCopy)
-	textureRect = {0, 0, 100, 100};
-	
-	//This represents where on the screen we will put the circle texture and it's size, 
-	//this will initialise it at the top left and the image will be squished to 15 x 15
-	positionRect = {(640 / 2) - 7,  // X position - this is overcomplicated but it just puts the circle in the center of the screen.
-					0,                       // Y position - sets the circle at the top of the screen 
-					15,                      // Sets the height of the circle
-					15};                     // Sets the weidth of the circle
 
-		
-
-	//GameEntity testEnt2 = GameEntity(createBall());
-
-	//testEnt2.send(1337);
-
-	ballEntity = new GameEntity(createBall());
-	ballEntity->send(1337);
-}
+	ballEntity = new GameEntity(createBall(), 
+								((640 / 2) - 7),
+								0,
+								15,
+								15);
+};
 
 void input()
 {
@@ -159,31 +143,29 @@ void input()
 	}
 }
 
-
-
 void update(double _dt)
 {
 
-	if (positionRect.y <= 0)
+	if (ballEntity->y <= 0)
 	{
 		falling = true;
 	};
 
-	if (positionRect.y >= (480 - positionRect.h))
+	if (ballEntity->y >= (480 - ballEntity->h))
 	{	
 		falling = false;
 	};
 
 	if (falling)
 	{
-		positionRect.y += velocity * _dt;
+		ballEntity->y += velocity * _dt;
 	}
 	else 
 	{
-		positionRect.y -= velocity * _dt;	
-	}
+		ballEntity->y -= velocity * _dt;	
+	};
 
-}
+};
 
 
 void render()
@@ -191,13 +173,11 @@ void render()
 	//Sets a background color for the scene
 	SDL_SetRenderDrawColor(renderer, 91, 10, 145, 255);
 
-	ballEntity->components->GraphicsComponent->render(*ballEntity, renderer);
-	
 	//clears previous frame.
 	SDL_RenderClear(renderer);
 	
 	//Set up the circle on the next render frame.
-	SDL_RenderCopy(renderer, circle, &textureRect, &positionRect);
+	ballEntity->components->GraphicsComponent->render(*ballEntity, renderer);
 
 	//Renders current frame.
 	SDL_RenderPresent(renderer);

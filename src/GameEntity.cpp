@@ -1,7 +1,6 @@
 #include <iostream>
 #include <GameEntity.hpp>
 
-
 GameEntity::GameEntity(Components* _components)
 {	
 	this->components = _components;
@@ -22,7 +21,6 @@ GameEntity::GameEntity(Components* _components, int _x, int _y, int _w, int _h)
 	this->w = _w;
 	this->h = _h;
 };
-
 
 GameEntity::~GameEntity()
 {
