@@ -1,16 +1,17 @@
 #pragma once
-#include <Component.hpp>
-#include <Graphics.hpp>
-#include <array>
+#include <Components.hpp>
 
 class GameEntity
 {
-	int x;
-	int y;
-	static const int MAX_COMPONENTS = 10;
-	std::array<Component*, MAX_COMPONENTS> components = {0};
 public:
-	GameEntity(std::array<Component*, MAX_COMPONENTS> _components);
+	int x = 0;
+	int y = 0;
+	int w = 0;
+	int h = 0;
+	Components* components = NULL;
+	GameEntity(Components* _components);
+	GameEntity(Components* _components, int _x, int _y);
+	GameEntity(Components* _components, int _x, int _y, int _w, int _h);
 	~GameEntity();
 	void send(int message);
 };

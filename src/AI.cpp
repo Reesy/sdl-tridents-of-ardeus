@@ -1,5 +1,6 @@
-#include <AI.hpp>
+
 #include <iostream>
+#include <AI.hpp>
 
 AI::AI()
 {

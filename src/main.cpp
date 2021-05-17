@@ -2,10 +2,12 @@
 #include <string> 
 #include <iostream>
 #include <AI.hpp>
-#include <Collider.hpp>
 #include <GameEntity.hpp>
 #include <Graphics.hpp>
+#include <BallGraphics.hpp>
+#include <Collider.hpp>
 #include <Scene.hpp>
+
 
 #if __EMSCRIPTEN__
 	#include <emscripten/emscripten.h>
@@ -44,8 +46,12 @@ int SCREEN_HEIGHT = 480;//480;
 double dt = 10; //The interval between updating the physics. IE update physics every 100th of a second
 double currentTime = SDL_GetTicks(); // in miliseconds
 double accumulator = 0.0; //This will hold the accumulation of physics steps (any time left over if the graphics renders faster than the physics simulates)
-
 double velocity = 1;    
+
+
+//Scene objects
+GameEntity* ballEntity = NULL;
+
 
 SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 {
@@ -58,13 +64,13 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 	return texture;
 }
 
-std::array<Component*, 10> createBall()
+Components* createBall()
 {
-	std::array<Component*, 10> ballComponents = {0};
-	Graphics *ballGraphics = new Graphics();
-	ballComponents[0] = ballGraphics;
+	Components* ballComponents = new Components;
+	BallGraphics* ballGraphics = new BallGraphics(circle);
+	ballComponents->GraphicsComponent = ballGraphics;
 	return ballComponents;
-}
+};
 
 void init()
 {
@@ -113,11 +119,13 @@ void init()
 					15};                     // Sets the weidth of the circle
 
 		
-	//Graphics testComp = Graphics();
-	
-	GameEntity testEnt2 = GameEntity(createBall());
 
-	testEnt2.send(1337);
+	//GameEntity testEnt2 = GameEntity(createBall());
+
+	//testEnt2.send(1337);
+
+	ballEntity = new GameEntity(createBall());
+	ballEntity->send(1337);
 }
 
 void input()
@@ -183,6 +191,8 @@ void render()
 	//Sets a background color for the scene
 	SDL_SetRenderDrawColor(renderer, 91, 10, 145, 255);
 
+	ballEntity->components->GraphicsComponent->render(*ballEntity, renderer);
+	
 	//clears previous frame.
 	SDL_RenderClear(renderer);
 	

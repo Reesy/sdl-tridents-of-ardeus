@@ -1,6 +1,5 @@
-#include <Graphics.hpp>
 #include <iostream>
-#include <SDL_image.h>
+#include <Graphics.hpp>
 
 Graphics::Graphics()
 {
@@ -11,11 +10,6 @@ Graphics::Graphics()
 Graphics::~Graphics()
 {
 	std::cout << "Graphics destructor not yet implemented" << std::endl;
-};
-
-void Graphics::render()
-{
-	
 };
 
 void Graphics::receive(int _message)

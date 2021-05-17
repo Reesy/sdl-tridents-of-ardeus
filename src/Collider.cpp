@@ -1,5 +1,5 @@
-#include <Collider.hpp>
 #include <iostream>
+#include <Collider.hpp>
 
 Collider::Collider()
 {

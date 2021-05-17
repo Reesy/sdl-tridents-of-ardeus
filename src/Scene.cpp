@@ -1,5 +1,5 @@
-#include <Scene.hpp>
 #include <iostream>
+#include <Scene.hpp>
 
 Scene::Scene()
 {
