@@ -9,6 +9,8 @@ class Graphics: public Component
 protected:
 	SDL_Texture* texture = nullptr;
 public:
+	SDL_Rect positionRect = {0, 0, 0, 0};
+	SDL_Rect textureRect = {0, 0, 0, 0};
 	Graphics();
 	Graphics(SDL_Texture* _texture);
 	virtual ~Graphics();

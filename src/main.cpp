@@ -2,6 +2,7 @@
 #include <string> 
 #include <iostream>
 #include <AI.hpp>
+#include <AnimationComponent.hpp>
 #include <GameEntity.hpp>
 #include <Graphics.hpp>
 #include <GraphicsComponent.hpp>
@@ -52,7 +53,6 @@ double velocity = 1;
 GameEntity* ballEntity = NULL;
 GameEntity* playerEntity = NULL;
 
-
 SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 {
 	SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
@@ -62,7 +62,7 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 		std::cout << IMG_GetError() << std::endl;
 	}
 	return texture;
-}
+};
 
 Components* createBall()
 {
@@ -75,15 +75,14 @@ Components* createBall()
 
 Components* createPlayer()
 {
-
 	SDL_Rect PlayerTextureRect = {0, 0, 40, 40};
 	Components* playerComponents = new Components;
 	GraphicsComponent* graphicsComponent = new GraphicsComponent(playerTexture, PlayerTextureRect);
+	AnimationComponent* animationComponent = new AnimationComponent(2, 1000);
 	playerComponents->GraphicsComponent = graphicsComponent;
+	playerComponents->AnimationComponent = animationComponent;
 	return playerComponents;
 };
-
-
 
 void init()
 {
@@ -136,14 +135,14 @@ void input()
 	if (event->type == SDL_QUIT)
 	{
 		quit = true;
-	}
+	};
 
 
 	if (event->window.event == SDL_WINDOWEVENT_RESIZED)
 	{
 		SDL_GetWindowSize(window, &SCREEN_WIDTH, &SCREEN_HEIGHT); 
 		std::cout << "The window was resized: " <<  SCREEN_WIDTH << std::endl;
-	}
+	};
 
 
 	if (event->type == SDL_KEYDOWN)
@@ -151,19 +150,19 @@ void input()
 		switch (event->key.keysym.sym)
 		{
 			case SDLK_KP_A:
-				
 				break;
 			case SDLK_KP_D:
-				
 				break;
 			default:
 				break;
-		}
-	}
-}
+		};
+	};
+};
 
 void update(double _dt)
 {
+
+	playerEntity->components->AnimationComponent->update(*playerEntity, _dt);
 
 	if (ballEntity->y <= 0)
 	{
@@ -213,11 +212,11 @@ void mainLoop()
 	{
 		std::cout << "UPPER BOUND HIT, LAG ENCOUNTERED" << std::endl;
 		frameTime = 250; //Upper bound on the time between processing this loop. If physics simulation is slower than render calculation then the game could halt.
-	}
+	};
 
 	#if __EMSCRIPTEN__
-	int canvasWidth = canvas_get_width();
-	std::cout << "The canvas width was: " << canvasWidth << std::endl;
+		int canvasWidth = canvas_get_width();
+		std::cout << "The canvas width was: " << canvasWidth << std::endl;
 	#endif
 
 
@@ -237,13 +236,12 @@ void mainLoop()
 	while (SDL_PollEvent(event))
 	{
 		input();
-	}
-}
+	};
+};
 
 int main(int, char**)
 {
 	init();
-
 
 	//When creating a native app (.exe on windows or sh on OSX/Linux this will directly call mainLoop. when running in browser emscripten deals with calls to the main method)
 	#if __EMSCRIPTEN__
@@ -255,7 +253,7 @@ int main(int, char**)
 		}
 	#endif
 
-	SDL_DestroyRenderer(renderer );
+	SDL_DestroyRenderer( renderer );
 	SDL_DestroyWindow( window );
 	renderer = NULL;
 	window = NULL;

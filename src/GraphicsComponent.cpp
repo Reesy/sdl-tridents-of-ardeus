@@ -1,6 +1,7 @@
 #include <GraphicsComponent.hpp>
 #include <GameEntity.hpp>
 
+
 GraphicsComponent::GraphicsComponent(SDL_Texture* _texture, SDL_Rect _textureRect)
 {
     this->texture = _texture;

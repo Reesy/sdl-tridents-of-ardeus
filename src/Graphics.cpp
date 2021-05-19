@@ -3,13 +3,12 @@
 
 Graphics::Graphics()
 {
-	std::cout << "Graphics constructor not yet implemented" << std::endl;
 	return;
 };
 
 Graphics::~Graphics()
 {
-	std::cout << "Graphics destructor not yet implemented" << std::endl;
+	return;
 };
 
 void Graphics::receive(int _message)
