@@ -8,6 +8,7 @@
 #include <GraphicsComponent.hpp>
 #include <Collider.hpp>
 #include <Scene.hpp>
+#include <TileComponent.hpp>
 
 #if __EMSCRIPTEN__
 	#include <emscripten/emscripten.h>
@@ -35,6 +36,7 @@ SDL_Renderer *renderer = NULL;
 SDL_Event *event = NULL;
 SDL_Texture *circle = NULL;
 SDL_Texture *playerTexture = NULL;
+SDL_Texture *tileSheet = NULL;
 SDL_Rect textureRect;
 SDL_Rect positionRect;
 
@@ -52,6 +54,7 @@ double velocity = 1;
 //Scene objects
 GameEntity* ballEntity = NULL;
 GameEntity* playerEntity = NULL;
+GameEntity* levelEntity = NULL;
 
 SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 {
@@ -73,12 +76,53 @@ Components* createBall()
 	return ballComponents;
 };
 
+
+Components* createLevel()
+{	
+	SDL_Rect boundaryTextureRect = {0, 0, 40, 40};
+	SDL_Rect grassTextureRect = {0, 40, 40, 40};
+	SDL_Rect waterTextureRect = {40, 0, 40, 40};
+	SDL_Rect skyTextureRect = {40, 40, 40, 40};
+	SDL_Rect textureRects[4] = {boundaryTextureRect, grassTextureRect, waterTextureRect, skyTextureRect};
+	
+	int level[20 * 30] = {
+        0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,
+        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
+
+        1,1,1,1,1,  1,1,1,1,1,  2,2,2,2,2,  2,2,2,2,2,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
+
+        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  2,2,2,2,2,  2,2,2,2,2,  1,1,1,1,1,  1,1,1,1,1,
+
+        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  1,1,1,0,0,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
+        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1
+	};
+
+	Components* levelComponents = new Components;
+	TileComponent* tileComponent = new TileComponent(tileSheet, textureRects, level);
+	levelComponents->GraphicsComponent = tileComponent;
+	return levelComponents;
+};
+
 Components* createPlayer()
 {
 	SDL_Rect PlayerTextureRect = {0, 0, 40, 40};
 	Components* playerComponents = new Components;
 	GraphicsComponent* graphicsComponent = new GraphicsComponent(playerTexture, PlayerTextureRect);
-	AnimationComponent* animationComponent = new AnimationComponent(2, 1000);
+	AnimationComponent* animationComponent = new AnimationComponent(2, 500);
 	playerComponents->GraphicsComponent = graphicsComponent;
 	playerComponents->AnimationComponent = animationComponent;
 	return playerComponents;
@@ -91,7 +135,7 @@ void init()
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 	{
 		throw("SDL failed to initialise");
-	}
+	};
 
 	window = SDL_CreateWindow("Tridents Of Ardeus!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
@@ -99,14 +143,14 @@ void init()
 	{
 		SDL_Quit();
 		throw("Failed to create window");
-	}
+	};
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	
 	if(!SDL_RenderSetLogicalSize(renderer, 640, 480))
 	{
 		std::cout << SDL_GetError() << std::endl;
-	}
+	};
 	
 	if (renderer == nullptr)
 	{
@@ -127,7 +171,11 @@ void init()
 
 	playerTexture = loadTexture("resources/player_spritesheet.png", renderer);
 
+	tileSheet = loadTexture("resources/tilesheet.png", renderer);
+
 	playerEntity = new GameEntity(createPlayer(), 20, 20, 100, 100);
+
+	levelEntity = new GameEntity(createLevel(), 0, 0, 40, 40);
 };
 
 void input()
@@ -194,6 +242,7 @@ void render()
 	//clears previous frame.
 	SDL_RenderClear(renderer);
 	
+	levelEntity->components->GraphicsComponent->render(*levelEntity, renderer);
 	//Set up the circle on the next render frame.
 	ballEntity->components->GraphicsComponent->render(*ballEntity, renderer);
 

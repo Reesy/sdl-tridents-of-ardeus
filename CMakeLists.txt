@@ -9,22 +9,24 @@ set(CMAKE_BUILD_TYPE Debug)
 set(MY_SOURCES  src/AI.cpp
                 src/Animation.cpp
                 src/AnimationComponent.cpp
-                src/GraphicsComponent.cpp
                 src/Collider.cpp
                 src/GameEntity.cpp
                 src/Graphics.cpp
+                src/GraphicsComponent.cpp
                 src/main.cpp
                 src/Scene.cpp
+                src/TileComponent.cpp
                 include/AI.hpp
                 include/Animation.hpp
                 include/AnimationComponent.hpp
-                include/GraphicsComponent.hpp
                 include/Collider.hpp
-                include/GameEntity.hpp
                 include/Component.hpp
                 include/Components.hpp
+                include/GameEntity.hpp
                 include/Graphics.hpp
-                include/Scene.hpp)
+                include/GraphicsComponent.hpp
+                include/Scene.hpp
+                include/TileComponent.hpp)
 
 set(MY_RESOURCES resources)
 

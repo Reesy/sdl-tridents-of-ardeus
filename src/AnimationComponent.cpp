@@ -32,14 +32,12 @@ void AnimationComponent::update(GameEntity& _gameEntity, double _dt)
 
             currentFrameNumber = 0;
             _gameEntity.components->GraphicsComponent->textureRect.x = 0;
-            //_textureRect->x = 0;
             return;
         };
 
         currentFrameNumber++;
 
         _gameEntity.components->GraphicsComponent->textureRect.x = currentFrameNumber *   _gameEntity.components->GraphicsComponent->textureRect.w;
-       // _textureRect->x = currentFrameNumber * width;
     };
 
     return;
