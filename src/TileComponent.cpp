@@ -8,21 +8,27 @@ TileComponent::TileComponent()
 
 TileComponent::TileComponent(SDL_Texture* _texture, 
                              SDL_Rect _textureRects [], 
-                             int _tiles [])
+                             int _tiles [],
+                             int _numberOfUniqueTiles,
+                             int _tileMapWidth,
+                             int _tileMapHeight)
 {
+    this->tileMapWidth = _tileMapWidth;
+    this->tileMapHeight = _tileMapHeight;
     this->texture = _texture;
     
-    for (int i = 0; i < 4; i++)
+    this->textureRects = new SDL_Rect[_numberOfUniqueTiles];
+    for (int i = 0; i < _numberOfUniqueTiles; i++)
     {
         this->textureRects[i] = _textureRects[i];
     };
-
-    for (int i = 0; i < 600; i++)
+    
+    this->tiles = new int[_tileMapWidth * _tileMapHeight];
+    for (int i = 0; i < (_tileMapWidth * _tileMapHeight); i++)
     {
         this->tiles[i] = _tiles[i];
     };
 
-   // this->textureRect = _textureRects[0];
     return;
 };
 
@@ -39,24 +45,18 @@ void TileComponent::render(GameEntity& _gameEntity, SDL_Renderer* _renderer)
                     _gameEntity.w, 
                     _gameEntity.h};
     
-    // 30 width 
-    // 20 height
-    for (int i = 0; i < 30; ++i)
+    for (int x = 0; x < this->tileMapWidth; ++x)
     {
-        for (int x = 0; x < 20; ++x)
+        for (int y = 0; y < this->tileMapHeight; ++y)
         {
-          //  std::cout << this->tiles[i*x];
+            positionRect.x = _gameEntity.x + (x * _gameEntity.w);
+            positionRect.y = _gameEntity.y + (y * _gameEntity.h);
+            
             SDL_RenderCopy(_renderer, 
                            this->texture, 
-                            &textureRects[this->tiles[ (x * 30) + i] ],
-                            &positionRect);
-
-            positionRect = {_gameEntity.x + (i * 40),
-                    _gameEntity.y + (x * 40),
-                    _gameEntity.w,
-                    _gameEntity.h};
+                           &textureRects[this->tiles[ (y * this->tileMapWidth) + x] ],
+                           &positionRect);
         };
-     //   std::cout << std::endl;
    };
 
     return;

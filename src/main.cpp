@@ -21,6 +21,7 @@
 
 #if __EMSCRIPTEN__
 
+//Example on how to interact with JS functions via emscripten if needed
 EM_JS(int, canvas_get_width, (), {
   return canvas.width;
 });
@@ -80,12 +81,13 @@ Components* createBall()
 Components* createLevel()
 {	
 	SDL_Rect boundaryTextureRect = {0, 0, 40, 40};
-	SDL_Rect grassTextureRect = {0, 40, 40, 40};
-	SDL_Rect waterTextureRect = {40, 0, 40, 40};
+	SDL_Rect grassTextureRect = {40, 0, 40, 40};
+	SDL_Rect waterTextureRect = {0, 40, 40, 40};
 	SDL_Rect skyTextureRect = {40, 40, 40, 40};
 	SDL_Rect textureRects[4] = {boundaryTextureRect, grassTextureRect, waterTextureRect, skyTextureRect};
-	
-	int level[20 * 30] = {
+
+	int level[30 * 20] = 
+	{
         0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,
         1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
         1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
@@ -112,7 +114,10 @@ Components* createLevel()
 	};
 
 	Components* levelComponents = new Components;
-	TileComponent* tileComponent = new TileComponent(tileSheet, textureRects, level);
+	TileComponent* tileComponent = new TileComponent(tileSheet, 
+													 textureRects, 
+													 level, 
+													 4 ,30, 20);
 	levelComponents->GraphicsComponent = tileComponent;
 	return levelComponents;
 };
