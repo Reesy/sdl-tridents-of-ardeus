@@ -163,24 +163,23 @@ void init()
 		SDL_Quit();
 		throw("Failed to create renderer");
 	}
-
+	
+	
 	event = new SDL_Event();
 
 	circle = loadTexture("resources/example_texture.png", renderer);
-
-	ballEntity = new GameEntity(createBall(), 
-								((640 / 2) - 7),
-								0,
-								15,
-								15);
 
 	playerTexture = loadTexture("resources/player_spritesheet.png", renderer);
 
 	tileSheet = loadTexture("resources/tilesheet.png", renderer);
 
-	playerEntity = new GameEntity(createPlayer(), 20, 20, 100, 100);
+	playerEntity = new GameEntity(createPlayer(), 
+								 (SCREEN_WIDTH / 2) - 20, 
+								 (SCREEN_HEIGHT / 2) - 20, 
+								 40, 
+								 40);
 
-	levelEntity = new GameEntity(createLevel(), 0, 0, 40, 40);
+	levelEntity = new GameEntity(createLevel(), 0, 0, 38, 38);
 };
 
 void input()
@@ -202,9 +201,11 @@ void input()
 	{
 		switch (event->key.keysym.sym)
 		{
-			case SDLK_KP_A:
+			case SDLK_a:
+				levelEntity->x -= 40;
 				break;
-			case SDLK_KP_D:
+			case SDLK_d:
+				levelEntity->x += 40;
 				break;
 			default:
 				break;
@@ -214,44 +215,22 @@ void input()
 
 void update(double _dt)
 {
-
 	playerEntity->components->AnimationComponent->update(*playerEntity, _dt);
-
-	if (ballEntity->y <= 0)
-	{
-		falling = true;
-	};
-
-	if (ballEntity->y >= (480 - ballEntity->h))
-	{	
-		falling = false;
-	};
-
-	if (falling)
-	{
-		ballEntity->y += velocity * _dt;
-	}
-	else 
-	{
-		ballEntity->y -= velocity * _dt;	
-	};
-
 };
 
 
 void render()
 {
 	//Sets a background color for the scene
-	SDL_SetRenderDrawColor(renderer, 91, 10, 145, 255);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
 	//clears previous frame.
 	SDL_RenderClear(renderer);
 	
 	levelEntity->components->GraphicsComponent->render(*levelEntity, renderer);
-	//Set up the circle on the next render frame.
-	ballEntity->components->GraphicsComponent->render(*ballEntity, renderer);
-
+	
 	playerEntity->components->GraphicsComponent->render(*playerEntity, renderer);
+	
 	//Renders current frame.
 	SDL_RenderPresent(renderer);
 }
