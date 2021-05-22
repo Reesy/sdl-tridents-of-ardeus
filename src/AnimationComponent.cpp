@@ -7,12 +7,12 @@ AnimationComponent::AnimationComponent(int _numberOfFrames, int _frameDuration)
     this->numberOfFrames = _numberOfFrames;
     this->frameDuration = _frameDuration;
     return;
-};
+}
 
 AnimationComponent::~AnimationComponent()
 {
     return;
-};
+}
 
 void AnimationComponent::update(GameEntity& _gameEntity, double _dt)
 {
@@ -42,4 +42,4 @@ void AnimationComponent::update(GameEntity& _gameEntity, double _dt)
 
     return;
 
-};
+}

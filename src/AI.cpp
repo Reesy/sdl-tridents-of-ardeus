@@ -4,14 +4,13 @@
 
 AI::AI()
 {
-
 	std::cout << "AI not yet implemented" << std::endl;
-};
+}
 
 AI::~AI()
 {
 	std::cout << "AI not yet implemented" << std::endl;
-};
+}
 
 void AI::receive(int _message)
 {

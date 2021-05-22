@@ -4,14 +4,14 @@
 GameEntity::GameEntity(Components* _components)
 {	
 	this->components = _components;
-};
+}
 
 GameEntity::GameEntity(Components* _components, int _x, int _y)
 {	
 	this->components = _components;
 	this->x = _x;
 	this->y = _y;
-};
+}
 
 GameEntity::GameEntity(Components* _components, int _x, int _y, int _w, int _h)
 {	
@@ -20,12 +20,12 @@ GameEntity::GameEntity(Components* _components, int _x, int _y, int _w, int _h)
 	this->y = _y;
 	this->w = _w;
 	this->h = _h;
-};
+}
 
 GameEntity::~GameEntity()
 {
 	std::cout << "Game Entity destroyed" << std::endl;
-};
+}
 
 void GameEntity::send(int _message)
 {	

@@ -66,7 +66,7 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 		std::cout << IMG_GetError() << std::endl;
 	}
 	return texture;
-};
+}
 
 Components* createBall()
 {
@@ -75,7 +75,7 @@ Components* createBall()
 	GraphicsComponent* graphicsComponent = new GraphicsComponent(circle, BalltextureRect);
 	ballComponents->GraphicsComponent = graphicsComponent;
 	return ballComponents;
-};
+}
 
 
 Components* createLevel()
@@ -120,7 +120,7 @@ Components* createLevel()
 													 4 ,30, 20);
 	levelComponents->GraphicsComponent = tileComponent;
 	return levelComponents;
-};
+}
 
 Components* createPlayer()
 {
@@ -131,7 +131,7 @@ Components* createPlayer()
 	playerComponents->GraphicsComponent = graphicsComponent;
 	playerComponents->AnimationComponent = animationComponent;
 	return playerComponents;
-};
+}
 
 void init()
 {
@@ -180,7 +180,7 @@ void init()
 								 40);
 
 	levelEntity = new GameEntity(createLevel(), 0, 0, 38, 38);
-};
+}
 
 void input()
 {
@@ -211,12 +211,12 @@ void input()
 				break;
 		};
 	};
-};
+}
 
 void update(double _dt)
 {
 	playerEntity->components->AnimationComponent->update(*playerEntity, _dt);
-};
+}
 
 
 void render()
@@ -270,7 +270,7 @@ void mainLoop()
 	{
 		input();
 	};
-};
+}
 
 int main(int, char**)
 {
@@ -294,4 +294,4 @@ int main(int, char**)
 	SDL_Quit();
 
 	return 0;
-};
+}

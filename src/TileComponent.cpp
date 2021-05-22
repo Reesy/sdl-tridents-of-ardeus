@@ -4,7 +4,7 @@
 TileComponent::TileComponent()
 {
     return;
-};
+}
 
 TileComponent::TileComponent(SDL_Texture* _texture, 
                              SDL_Rect _textureRects [], 
@@ -30,13 +30,13 @@ TileComponent::TileComponent(SDL_Texture* _texture,
     };
 
     return;
-};
+}
 
 
 TileComponent::~TileComponent()
 {
     return;
-};
+}
 
 void TileComponent::render(GameEntity& _gameEntity, SDL_Renderer* _renderer)
 {
@@ -60,4 +60,4 @@ void TileComponent::render(GameEntity& _gameEntity, SDL_Renderer* _renderer)
    };
 
     return;
-};
+}

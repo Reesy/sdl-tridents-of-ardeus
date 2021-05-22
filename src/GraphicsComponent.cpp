@@ -7,12 +7,12 @@ GraphicsComponent::GraphicsComponent(SDL_Texture* _texture, SDL_Rect _textureRec
     this->texture = _texture;
     this->textureRect = _textureRect;
     return;
-};
+}
 
 GraphicsComponent::~GraphicsComponent()
 {
     return;
-};
+}
 
 void GraphicsComponent::render(GameEntity& _gameEntity, SDL_Renderer* _renderer)
 {
@@ -22,4 +22,4 @@ void GraphicsComponent::render(GameEntity& _gameEntity, SDL_Renderer* _renderer)
                    &textureRect, 
                    &positionRect);
     return;
-};
+}

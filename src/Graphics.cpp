@@ -4,12 +4,12 @@
 Graphics::Graphics()
 {
 	return;
-};
+}
 
 Graphics::~Graphics()
 {
 	return;
-};
+}
 
 void Graphics::receive(int _message)
 {
