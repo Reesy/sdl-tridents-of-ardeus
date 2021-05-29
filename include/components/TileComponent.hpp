@@ -5,9 +5,9 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <Graphics.hpp>
+#include <interfaces/GraphicsInterface.hpp>
 
-class TileComponent: public Graphics
+class TileComponent: public GraphicsInterface
 {
     SDL_Rect *textureRects;
     int *tiles;

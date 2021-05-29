@@ -1,4 +1,4 @@
-#include <AnimationComponent.hpp>
+#include <components/AnimationComponent.hpp>
 #include <GameEntity.hpp>
 #include <iostream>
 

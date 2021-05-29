@@ -1,34 +1,44 @@
 cmake_minimum_required(VERSION 3.17.3) 
 
 set(EXECUTABLE_NAME Tridents-of-Ardeus)
+set(TEST_EXECUTABLE_NAME test)
 
 project(Tridents LANGUAGES CXX) #set the project name and to use C++
 
 set(CMAKE_BUILD_TYPE Debug)
 
-set(MY_SOURCES  src/AI.cpp
-                src/Animation.cpp
-                src/AnimationComponent.cpp
-                src/Collider.cpp
+set(MY_SOURCES  src/interfaces/AIInterface.cpp
+                src/interfaces/AnimationInterface.cpp
+                src/components/AnimationComponent.cpp
+                src/interfaces/ColliderInterface.cpp
                 src/GameEntity.cpp
-                src/Graphics.cpp
-                src/GraphicsComponent.cpp
+                src/interfaces/GraphicsInterface.cpp
+                src/components/GraphicsComponent.cpp
                 src/main.cpp
-                src/Scene.cpp
-                src/TileComponent.cpp
-                include/AI.hpp
-                include/Animation.hpp
-                include/AnimationComponent.hpp
-                include/Collider.hpp
-                include/Component.hpp
+                src/interfaces/SceneInterface.cpp
+                src/components/TileComponent.cpp
+                include/interfaces/AIInterface.hpp
+                include/interfaces/AnimationInterface.hpp
+                include/components/AnimationComponent.hpp
+                include/interfaces/ColliderInterface.hpp
+                include/interfaces/ComponentInterface.hpp
                 include/Components.hpp
                 include/GameEntity.hpp
-                include/Graphics.hpp
-                include/GraphicsComponent.hpp
-                include/Scene.hpp
-                include/TileComponent.hpp)
+                include/interfaces/GraphicsInterface.hpp
+                include/components/GraphicsComponent.hpp
+                include/interfaces/SceneInterface.hpp
+                include/components/TileComponent.hpp)
 
 set(MY_RESOURCES resources)
+
+SET(TEST_SOURCES test/deps/catch_amalgamated.cpp
+                 test/deps/catch_amalgamated.hpp
+                 test/spec/entities/PlayerTest.cpp)
+
+
+add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES})
+
+target_compile_features(${TEST_EXECUTABLE_NAME} PRIVATE cxx_std_17)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -49,6 +59,7 @@ if (MINGW)
 endif()
 
 add_executable(${EXECUTABLE_NAME} ${MY_SOURCES})
+target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_std_17)
 
 if (MINGW)
     file(COPY ${MY_RESOURCES} DESTINATION ${CMAKE_BINARY_DIR}/dist)

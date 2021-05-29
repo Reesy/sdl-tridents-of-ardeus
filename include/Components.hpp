@@ -1,13 +1,13 @@
 #pragma once
-#include <AI.hpp>
-#include <Animation.hpp>
-#include <Collider.hpp>
-#include <Graphics.hpp>
+#include <interfaces/AIInterface.hpp>
+#include <interfaces/AnimationInterface.hpp>
+#include <interfaces/ColliderInterface.hpp>
+#include <interfaces/GraphicsInterface.hpp>
 
 struct Components
 {
-    AI* AIComponent = nullptr;
-    Animation* AnimationComponent = nullptr;
-    Collider* ColliderComponent = nullptr;
-    Graphics* GraphicsComponent = nullptr;
+    AIInterface* AIComponent = nullptr;
+    AnimationInterface* AnimationComponent = nullptr;
+    ColliderInterface* ColliderComponent = nullptr;
+    GraphicsInterface* GraphicsComponent = nullptr;
 };

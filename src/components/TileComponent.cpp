@@ -1,4 +1,4 @@
-#include <TileComponent.hpp>
+#include <components/TileComponent.hpp>
 #include <GameEntity.hpp>
 
 TileComponent::TileComponent()

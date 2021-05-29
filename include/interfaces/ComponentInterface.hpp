@@ -1,8 +1,8 @@
 #pragma once
 
-class Component 
+class ComponentInterface
 {
     public:
-        virtual ~Component() {};
+        virtual ~ComponentInterface() {};
         virtual void receive(int message) = 0;
 };

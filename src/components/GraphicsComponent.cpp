@@ -1,4 +1,4 @@
-#include <GraphicsComponent.hpp>
+#include <components/GraphicsComponent.hpp>
 #include <GameEntity.hpp>
 
 

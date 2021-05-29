@@ -2,9 +2,9 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include <Graphics.hpp>
+#include <interfaces/GraphicsInterface.hpp>
 
-class GraphicsComponent: public Graphics
+class GraphicsComponent: public GraphicsInterface
 {
    
     public:

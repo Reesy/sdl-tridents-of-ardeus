@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <string> 
 #include <iostream>
-#include <AI.hpp>
-#include <AnimationComponent.hpp>
+#include <interfaces/AIInterface.hpp>
+#include <components/AnimationComponent.hpp>
 #include <GameEntity.hpp>
-#include <Graphics.hpp>
-#include <GraphicsComponent.hpp>
-#include <Collider.hpp>
-#include <Scene.hpp>
-#include <TileComponent.hpp>
+#include <interfaces/GraphicsInterface.hpp>
+#include <components/GraphicsComponent.hpp>
+#include <interfaces/ColliderInterface.hpp>
+#include <interfaces/SceneInterface.hpp>
+#include <components/TileComponent.hpp>
 
 #if __EMSCRIPTEN__
 	#include <emscripten/emscripten.h>

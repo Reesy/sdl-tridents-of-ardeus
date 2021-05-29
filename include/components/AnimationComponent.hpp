@@ -1,9 +1,9 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_image.h>
-#include <Animation.hpp>
+#include <interfaces/AnimationInterface.hpp>
 
-class AnimationComponent: public Animation
+class AnimationComponent: public AnimationInterface
 {
     protected:
         int numberOfFrames = 0;
