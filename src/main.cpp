@@ -3,6 +3,7 @@
 #include <iostream>
 #include <interfaces/AIInterface.hpp>
 #include <components/AnimationComponent.hpp>
+#include <Entities.hpp>
 #include <GameEntity.hpp>
 #include <interfaces/GraphicsInterface.hpp>
 #include <components/GraphicsComponent.hpp>
@@ -68,71 +69,6 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
 	return texture;
 }
 
-Components* createBall()
-{
-	SDL_Rect BalltextureRect = {0, 0, 100, 100};
-	Components* ballComponents = new Components;
-	GraphicsComponent* graphicsComponent = new GraphicsComponent(circle, BalltextureRect);
-	ballComponents->GraphicsComponent = graphicsComponent;
-	return ballComponents;
-}
-
-
-Components* createLevel()
-{	
-	SDL_Rect boundaryTextureRect = {0, 0, 40, 40};
-	SDL_Rect grassTextureRect = {40, 0, 40, 40};
-	SDL_Rect waterTextureRect = {0, 40, 40, 40};
-	SDL_Rect skyTextureRect = {40, 40, 40, 40};
-	SDL_Rect textureRects[4] = {boundaryTextureRect, grassTextureRect, waterTextureRect, skyTextureRect};
-
-	int level[30 * 20] = 
-	{
-        0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,  0,0,0,0,0,
-        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
-
-        1,1,1,1,1,  1,1,1,1,1,  2,2,2,2,2,  2,2,2,2,2,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
-
-        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  2,1,1,1,1,  1,1,1,1,2,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  2,2,2,2,2,  2,2,2,2,2,  1,1,1,1,1,  1,1,1,1,1,
-
-        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  1,1,1,0,0,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,
-        1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1,  1,1,1,1,1
-	};
-
-	Components* levelComponents = new Components;
-	TileComponent* tileComponent = new TileComponent(tileSheet, 
-													 textureRects, 
-													 level, 
-													 4 ,30, 20);
-	levelComponents->GraphicsComponent = tileComponent;
-	return levelComponents;
-}
-
-Components* createPlayer()
-{
-	SDL_Rect PlayerTextureRect = {0, 0, 40, 40};
-	Components* playerComponents = new Components;
-	GraphicsComponent* graphicsComponent = new GraphicsComponent(playerTexture, PlayerTextureRect);
-	AnimationComponent* animationComponent = new AnimationComponent(2, 500);
-	playerComponents->GraphicsComponent = graphicsComponent;
-	playerComponents->AnimationComponent = animationComponent;
-	return playerComponents;
-}
-
 void init()
 {
 	
@@ -173,13 +109,18 @@ void init()
 
 	tileSheet = loadTexture("resources/tilesheet.png", renderer);
 
-	playerEntity = new GameEntity(createPlayer(), 
-								 (SCREEN_WIDTH / 2) - 20, 
-								 (SCREEN_HEIGHT / 2) - 20, 
-								 40, 
-								 40);
+	Entities* Level = new Entities();
 
-	levelEntity = new GameEntity(createLevel(), 0, 0, 38, 38);
+	playerEntity = Level->createPlayer(playerTexture);
+
+	levelEntity = Level->createLevel(tileSheet);
+	// playerEntity = new GameEntity(createPlayer(), 
+	// 							 (SCREEN_WIDTH / 2) - 20, 
+	// 							 (SCREEN_HEIGHT / 2) - 20, 
+	// 							 40, 
+	// 							 40);
+
+	// levelEntity = new GameEntity(createLevel(), 0, 0, 38, 38);
 }
 
 void input()

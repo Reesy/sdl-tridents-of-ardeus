@@ -11,6 +11,7 @@ set(MY_SOURCES  src/interfaces/AIInterface.cpp
                 src/interfaces/AnimationInterface.cpp
                 src/components/AnimationComponent.cpp
                 src/interfaces/ColliderInterface.cpp
+                src/Entities.cpp
                 src/GameEntity.cpp
                 src/interfaces/GraphicsInterface.cpp
                 src/components/GraphicsComponent.cpp
@@ -23,6 +24,7 @@ set(MY_SOURCES  src/interfaces/AIInterface.cpp
                 include/interfaces/ColliderInterface.hpp
                 include/interfaces/ComponentInterface.hpp
                 include/Components.hpp
+                include/Entities.hpp
                 include/GameEntity.hpp
                 include/interfaces/GraphicsInterface.hpp
                 include/components/GraphicsComponent.hpp
