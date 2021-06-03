@@ -38,9 +38,7 @@ SET(TEST_SOURCES test/deps/catch_amalgamated.cpp
                  test/spec/entities/PlayerTest.cpp)
 
 
-add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES})
 
-target_compile_features(${TEST_EXECUTABLE_NAME} PRIVATE cxx_std_17)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -62,6 +60,9 @@ endif()
 
 add_executable(${EXECUTABLE_NAME} ${MY_SOURCES})
 target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_std_17)
+
+add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${MY_SOURCES})
+target_compile_features(${TEST_EXECUTABLE_NAME} PRIVATE cxx_std_17)
 
 if (MINGW)
     file(COPY ${MY_RESOURCES} DESTINATION ${CMAKE_BINARY_DIR}/dist)
@@ -137,7 +138,9 @@ if( ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
     target_link_libraries(${EXECUTABLE_NAME})
 elseif(MINGW)
     target_link_libraries(${EXECUTABLE_NAME} mingw32 SDL2main SDL2 SDL2_image)
+    target_link_libraries(${TEST_EXECUTABLE_NAME} mingw32 SDL2main SDL2 SDL2_image)
     set_target_properties(${EXECUTABLE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist )
+    set_target_properties(${TEST_EXECUTABLE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist )
 else()
     target_link_libraries(${EXECUTABLE_NAME} ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARY} )
 endif()
