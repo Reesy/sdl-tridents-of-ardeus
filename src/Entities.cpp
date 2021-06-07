@@ -68,7 +68,11 @@ GameEntity* Entities::createLevel(SDL_Texture* _texture)
 													 4 ,30, 20);
 	levelComponents->GraphicsComponent = tileComponent;
 
-    GameEntity* levelEntity = new GameEntity(levelComponents, 0, 0, 38, 38);
+    GameEntity* levelEntity = new GameEntity(levelComponents, 
+                                             0, 
+                                             0, 
+                                             38, 
+                                             38);
 	return levelEntity;
 }
 
@@ -82,7 +86,11 @@ GameEntity* Entities::createPlayer(SDL_Texture* _texture)
 	playerComponents->GraphicsComponent = graphicsComponent;
 	playerComponents->AnimationComponent = animationComponent;
 
-    GameEntity* playerEntity = new GameEntity(playerComponents);
+    GameEntity* playerEntity = new GameEntity(playerComponents,
+                                              300,
+                                              220,
+                                              40,
+                                              40);
 
 	return playerEntity;
 }

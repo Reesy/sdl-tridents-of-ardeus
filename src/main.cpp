@@ -5,6 +5,7 @@
 #include <components/AnimationComponent.hpp>
 #include <Entities.hpp>
 #include <GameEntity.hpp>
+#include <Resources.hpp>
 #include <interfaces/GraphicsInterface.hpp>
 #include <components/GraphicsComponent.hpp>
 #include <interfaces/ColliderInterface.hpp>
@@ -41,6 +42,7 @@ SDL_Texture *playerTexture = NULL;
 SDL_Texture *tileSheet = NULL;
 SDL_Rect textureRect;
 SDL_Rect positionRect;
+Resources resources;
 
 bool quit = false;
 bool falling = true;
@@ -58,16 +60,6 @@ GameEntity* ballEntity = NULL;
 GameEntity* playerEntity = NULL;
 GameEntity* levelEntity = NULL;
 
-SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
-{
-	SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
-	if (texture == nullptr)
-	{
-		std::cout << "Could not load texture" << std::endl;
-		std::cout << IMG_GetError() << std::endl;
-	}
-	return texture;
-}
 
 void init()
 {
@@ -103,24 +95,17 @@ void init()
 	
 	event = new SDL_Event();
 
-	circle = loadTexture("resources/example_texture.png", renderer);
+	circle = resources.loadTexture("resources/example_texture.png", renderer);
 
-	playerTexture = loadTexture("resources/player_spritesheet.png", renderer);
+	playerTexture = resources.loadTexture("resources/player_spritesheet.png", renderer);
 
-	tileSheet = loadTexture("resources/tilesheet.png", renderer);
+	tileSheet = resources.loadTexture("resources/tilesheet.png", renderer);
 
 	Entities* Level = new Entities();
 
 	playerEntity = Level->createPlayer(playerTexture);
 
 	levelEntity = Level->createLevel(tileSheet);
-	// playerEntity = new GameEntity(createPlayer(), 
-	// 							 (SCREEN_WIDTH / 2) - 20, 
-	// 							 (SCREEN_HEIGHT / 2) - 20, 
-	// 							 40, 
-	// 							 40);
-
-	// levelEntity = new GameEntity(createLevel(), 0, 0, 38, 38);
 }
 
 void input()
