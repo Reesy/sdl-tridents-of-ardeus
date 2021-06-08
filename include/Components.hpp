@@ -3,6 +3,7 @@
 #include <interfaces/AnimationInterface.hpp>
 #include <interfaces/ColliderInterface.hpp>
 #include <interfaces/GraphicsInterface.hpp>
+#include <interfaces/InputInterface.hpp>
 
 struct Components
 {
@@ -10,4 +11,5 @@ struct Components
     AnimationInterface* AnimationComponent = nullptr;
     ColliderInterface* ColliderComponent = nullptr;
     GraphicsInterface* GraphicsComponent = nullptr;
+    InputInterface* InputComponent = nullptr;
 };

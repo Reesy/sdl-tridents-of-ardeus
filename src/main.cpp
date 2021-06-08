@@ -1,16 +1,21 @@
 #include <stdio.h>
 #include <string> 
 #include <iostream>
-#include <interfaces/AIInterface.hpp>
+
 #include <components/AnimationComponent.hpp>
+#include <components/GraphicsComponent.hpp>
+#include <components/InputComponent.hpp>
+#include <components/TileComponent.hpp>
+
+#include <interfaces/AIInterface.hpp>
+#include <interfaces/GraphicsInterface.hpp>
+#include <interfaces/ColliderInterface.hpp>
+#include <interfaces/InputInterface.hpp>
+#include <interfaces/SceneInterface.hpp>
+
 #include <Entities.hpp>
 #include <GameEntity.hpp>
 #include <Resources.hpp>
-#include <interfaces/GraphicsInterface.hpp>
-#include <components/GraphicsComponent.hpp>
-#include <interfaces/ColliderInterface.hpp>
-#include <interfaces/SceneInterface.hpp>
-#include <components/TileComponent.hpp>
 
 #if __EMSCRIPTEN__
 	#include <emscripten/emscripten.h>
@@ -43,6 +48,7 @@ SDL_Texture *tileSheet = NULL;
 SDL_Rect textureRect;
 SDL_Rect positionRect;
 Resources resources;
+InputComponent* sceneInput;
 
 bool quit = false;
 bool falling = true;
@@ -106,6 +112,8 @@ void init()
 	playerEntity = Level->createPlayer(playerTexture);
 
 	levelEntity = Level->createLevel(tileSheet);
+	
+	sceneInput = new InputComponent();
 }
 
 void input()
@@ -137,6 +145,8 @@ void input()
 				break;
 		};
 	};
+
+	sceneInput->update(event);
 }
 
 void update(double _dt)

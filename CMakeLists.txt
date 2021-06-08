@@ -7,31 +7,34 @@ project(Tridents LANGUAGES CXX) #set the project name and to use C++
 
 set(CMAKE_BUILD_TYPE Debug)
 
-set(MY_SOURCES  src/interfaces/AIInterface.cpp
+set(MY_SOURCES  src/components/AnimationComponent.cpp
+                src/components/GraphicsComponent.cpp
+                src/components/InputComponent.cpp
+                src/components/TileComponent.cpp
+                src/interfaces/AIInterface.cpp
                 src/interfaces/AnimationInterface.cpp
-                src/components/AnimationComponent.cpp
                 src/interfaces/ColliderInterface.cpp
+                src/interfaces/GraphicsInterface.cpp
+                src/interfaces/SceneInterface.cpp
                 src/Entities.cpp
                 src/GameEntity.cpp
                 src/Resources.cpp
-                src/interfaces/GraphicsInterface.cpp
-                src/components/GraphicsComponent.cpp
                 src/main.cpp
-                src/interfaces/SceneInterface.cpp
-                src/components/TileComponent.cpp
+                include/components/AnimationComponent.hpp
+                include/components/GraphicsComponent.hpp
+                include/components/InputComponent.hpp
+                include/components/TileComponent.hpp
                 include/interfaces/AIInterface.hpp
                 include/interfaces/AnimationInterface.hpp
-                include/components/AnimationComponent.hpp
                 include/interfaces/ColliderInterface.hpp
                 include/interfaces/ComponentInterface.hpp
+                include/interfaces/GraphicsInterface.hpp
+                include/interfaces/InputInterface.hpp
+                include/interfaces/SceneInterface.hpp
                 include/Components.hpp
                 include/Entities.hpp
                 include/GameEntity.hpp
-                include/Resources.hpp
-                include/interfaces/GraphicsInterface.hpp
-                include/components/GraphicsComponent.hpp
-                include/interfaces/SceneInterface.hpp
-                include/components/TileComponent.hpp)
+                include/Resources.hpp)
 
 set(MY_RESOURCES resources)
 
