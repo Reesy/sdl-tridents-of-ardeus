@@ -26,6 +26,8 @@
 	#include <SDL_image.h>
 #endif
 
+#undef main
+
 #if __EMSCRIPTEN__
 
 //Example on how to interact with JS functions via emscripten if needed
