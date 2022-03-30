@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.17.3) 
 
 set(EXECUTABLE_NAME Tridents-of-Ardeus)
-set(TEST_EXECUTABLE_NAME test)
+
+if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+
+    set(TEST_EXECUTABLE_NAME test)
+
+endif()
 
 project(Tridents LANGUAGES CXX) #set the project name and to use C++
 
@@ -66,8 +71,12 @@ endif()
 add_executable(${EXECUTABLE_NAME} ${MY_SOURCES})
 target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_std_17)
 
-add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${MY_SOURCES})
-target_compile_features(${TEST_EXECUTABLE_NAME} PRIVATE cxx_std_17)
+if (NOT ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+
+    add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${MY_SOURCES})
+    target_compile_features(${TEST_EXECUTABLE_NAME} PRIVATE cxx_std_17)
+
+endif()
 
 if (MINGW)
     file(COPY ${MY_RESOURCES} DESTINATION ${CMAKE_BINARY_DIR}/dist)
