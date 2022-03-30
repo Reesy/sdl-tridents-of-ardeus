@@ -1,12 +1,43 @@
 # Tridents of ardeus
 
-A small RPG to play around with SDL.
+A C++ tilemap based game, this is a rebuild of an older [project](https://github.com/Reesy/tridents-of-ardeus) but rewritten with SDL2 so that it can be compiled to the web. 
 
-How to clone:
+This game comes with some test code, this project is more to play around with clean code in C++
+
+It's also to test a cleaner architecture _composition over inheritence_
+
+
+
+
+<img src="example_tridents.png" style="width: 500px" > 
+
+You can test the game [here](https://jim.wales/tridents-of-ardeus/)
+
+## Supported platforms
+
+|  Platform         |  Status   |
+| ----------------- | --------- |
+| Windows - MingGW  |   ✔️      |
+| Windows - MSVC    |   ✔️      |
+| OSX               |   ✔️      |
+| Browser - Emscripten  | ✔️   |
+| Browser - Emscripten (with docker) | ✔️   |
+
+
+## Cloning
+
+Through CLI:
 
 ```
 git clone https://github.com/Reesy/sdl-tridents-of-ardeus
 ```
+
+Graphically (this will also generate a project on your profile) 
+
+![image](https://user-images.githubusercontent.com/5430483/159441936-843331ee-820d-4dad-af03-f1a1d31b3383.png)
+
+
+## Building
 
 This project has a dependency on SDL2 and SDL_image, when building natively these dependencies must be installed on the target machine and they can be discovered through the FindSDL cmake files. When building through emscripten the SDL and SDL2 ports are required (they should exist by default)
 
@@ -39,10 +70,33 @@ make
 
 
 </br>
-</br>
-</br>
 
+## Building and hosting on the web
+ 
+_This will create a make file and copy a basic index.html and python script to the embuild folder_
+``` 
+emcmake cmake -B embuild . 
+cd embuild && make
+``` 
+Serving the file using httpserver with Python 2: ```python -m SimpleHTTPServer 8080``` 
 
+## Hosting with docker  
+### Building the image 
+_The emscripten build must me run first_
+
+```
+emcmake cmake -B embuild . 
+cd embuild && make
+docker build -t <desired_image_name> .
+``` 
+ 
+### Running the image
+```
+docker run --name <desired_container_name> -p <desired_port>:3000 <desired_image_name> 
+```
+
+You will then be able to view the application on ```http://localhost:<desired_port>``` i.e http://localhost:3000
+ 
 
 # vs-code only
 
